@@ -20,6 +20,7 @@ final class RootInteractor: Interactor, RootInteractableInternal {
 
   //let storageWorker: StorageWorking
   let resourcesLoadingWorker: ResourcesLoadingWorking
+  let locationServiceWorker: LocationServiceWorking
   let preloadingTimeoutScheduler: SchedulerType
 
   weak var router: RootRoutingInternal?
@@ -28,10 +29,12 @@ final class RootInteractor: Interactor, RootInteractableInternal {
 
   init(//storageWorker: StorageWorking,
        resourcesLoadingWorker: ResourcesLoadingWorking,
+       locationServiceWorker: LocationServiceWorking,
        preloadingTimeoutScheduler: SchedulerType = ConcurrentMainScheduler.instance) {
 
     //self.storageWorker = storageWorker
     self.resourcesLoadingWorker = resourcesLoadingWorker
+    self.locationServiceWorker = locationServiceWorker
     self.preloadingTimeoutScheduler = preloadingTimeoutScheduler
 
     super.init()
@@ -43,6 +46,7 @@ final class RootInteractor: Interactor, RootInteractableInternal {
     // Start workers
     //storageWorker.start(self)
     resourcesLoadingWorker.start(self)
+    locationServiceWorker.start(self)
 
     // Route to splash immediately
     router?.routeToSplash()

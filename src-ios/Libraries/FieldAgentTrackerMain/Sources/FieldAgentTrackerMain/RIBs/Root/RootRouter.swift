@@ -49,19 +49,14 @@ final class RootRouter: LaunchRouter<RootInteractable, ViewControllable>, RootRo
   }
 
   public func routeToMain() {
-    let navigationController = UINavigationController()
-
-    let mainRouter = mainBuilder.build(
-      withListener: interactorInternal,
-      navigationController: navigationController)
+    let mainRouter = mainBuilder.build(withListener: interactorInternal)
 
     let viewController = mainRouter.viewControllable
-    navigationController.viewControllers = [viewController.uiviewController]
 
-    viewControllable.uiviewController.addChild(navigationController.uiviewController)
-    viewControllable.uiviewController.view.addSubview(navigationController.uiviewController.view)
+    viewControllable.uiviewController.addChild(viewController.uiviewController)
+    viewControllable.uiviewController.view.addSubview(viewController.uiviewController.view)
 
-    makeEdgesEqualToSuperview(view: navigationController.uiviewController.view, superview: viewControllable.uiviewController.view)
+    makeEdgesEqualToSuperview(view: viewController.uiviewController.view, superview: viewControllable.uiviewController.view)
 
     // Remove splash screen
     let routersToRemove = children.filter { !($0 is MainRouting) }

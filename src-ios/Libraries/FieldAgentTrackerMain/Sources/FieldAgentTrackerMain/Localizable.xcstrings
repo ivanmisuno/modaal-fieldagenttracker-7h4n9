@@ -11,6 +11,28 @@
           }
         }
       }
+    },
+    "tasksEmptyStateMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tasks scheduled for today"
+          }
+        }
+      }
+    },
+    "distanceUnavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distance unavailable"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

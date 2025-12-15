@@ -4,25 +4,23 @@ import UIKit
 import RIBs
 import RxSwift
 import RxRelay
+import RxCocoa
 
 /// sourcery: CreateMock
 protocol MainRouting: ViewableRouting {
 }
 
 /// sourcery: CreateMock
-protocol MainListener: AnyObject {
+protocol MainListener: AnyObject, HomeTabListener, CalendarTabListener, RoadPlannerTabListener, SettingsTabListener {
 }
 
-protocol MainPresentable: Presentable {
-}
-
-final class MainInteractor: PresentableInteractor<MainPresentable>, MainInteractable {
+final class MainInteractor: Interactor, MainInteractable {
 
   weak var router: MainRouting?
   weak var listener: MainListener?
 
-  override init(presenter: MainPresentable) {
-    super.init(presenter: presenter)
+  override init() {
+    super.init()
   }
 
   override func didBecomeActive() {

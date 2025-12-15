@@ -22,6 +22,14 @@ final class RootComponent: Component<RootDependency> {
   lazy var resourcesLoadingWorker: ResourcesLoadingWorking = {
     ResourcesLoadingWorker()
   }()
+  
+  lazy var locationServiceWorker: LocationServiceWorking = {
+    LocationServiceWorker()
+  }()
+  
+  lazy var _dailyPlannerWorker: DailyPlannerWorking = {
+    DailyPlannerWorker(locationService: locationServiceWorker)
+  }()
 
   init(dependency: RootDependency,
        rootViewController: UIViewController) {
@@ -68,7 +76,8 @@ public final class RootBuilder: Builder<RootDependency>, RootBuildable {
       rootViewController: viewController)
     let interactor = RootInteractor(
       //storageWorker: component._storageWorker,
-      resourcesLoadingWorker: component.resourcesLoadingWorker)
+      resourcesLoadingWorker: component.resourcesLoadingWorker,
+      locationServiceWorker: component.locationServiceWorker)
     let router = RootRouter(
       interactor: interactor,
       viewController: viewController,
@@ -82,4 +91,35 @@ extension RootComponent: SplashDependency {
 }
 
 extension RootComponent: MainDependency {
+  var homeTabBuilder: HomeTabBuildable {
+    HomeTabBuilder(dependency: self as HomeTabDependency)
+  }
+  var calendarTabBuilder: CalendarTabBuildable {
+    CalendarTabBuilder(dependency: self as CalendarTabDependency)
+  }
+  var roadPlannerTabBuilder: RoadPlannerTabBuildable {
+    RoadPlannerTabBuilder(dependency: self as RoadPlannerTabDependency)
+  }
+  var settingsTabBuilder: SettingsTabBuildable {
+    SettingsTabBuilder(dependency: self as SettingsTabDependency)
+  }
+}
+
+extension RootComponent: HomeTabDependency {
+  var dailyPlannerWorker: DailyPlannerWorking { _dailyPlannerWorker }
+  var taskDetailsBuilder: TaskDetailsBuildable {
+    TaskDetailsBuilder(dependency: self as TaskDetailsDependency)
+  }
+}
+
+extension RootComponent: CalendarTabDependency {
+}
+
+extension RootComponent: RoadPlannerTabDependency {
+}
+
+extension RootComponent: SettingsTabDependency {
+}
+
+extension RootComponent: TaskDetailsDependency {
 }
