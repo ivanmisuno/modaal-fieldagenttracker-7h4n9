@@ -1,0 +1,35 @@
+name: FieldAgentTracker
+configs:
+  Debug: debug
+  AdHoc: release
+  AppStore: release
+options:
+  createIntermediateGroups: true
+  developmentLanguage: en
+packages:
+  FieldAgentTrackerMain:
+    path: ../Libraries/FieldAgentTrackerMain
+    group:
+targets:
+  FieldAgentTracker:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources: [FieldAgentTracker]
+    settings:
+      base:
+        DEVELOPMENT_TEAM:
+        MARKETING_VERSION: 0.0.0
+        BUILD_NUMBER: ${ENV_BUILD_NUMBER}
+        CURRENT_PROJECT_VERSION: ${MARKETING_VERSION}.${BUILD_NUMBER}
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.FieldAgentTracker
+      configs:
+        Debug:
+          PRODUCT_NAME: FieldAgentTracker 🛠️
+          BUILD_NUMBER: "00000000"
+        AdHoc:
+          PRODUCT_NAME: FieldAgentTracker β
+        AppStore:
+          PRODUCT_NAME: FieldAgentTracker
+    dependencies:
+      - package: FieldAgentTrackerMain
